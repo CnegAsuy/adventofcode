@@ -14,7 +14,6 @@ fn main() {
         .map(|x| x.parse::<usize>().expect("Invalid number"))
         .collect();
 
-    // Split into left and right
     let mut left: Vec<usize> = Vec::new();
     let mut right: Vec<usize> = Vec::new();
     for (i, &val) in v_usize.iter().enumerate() {
@@ -25,6 +24,17 @@ fn main() {
         }
     }
 
+    part_one(&mut left.clone(), &mut right.clone());
+    part_two(left, right);
+}
+
+// Helper function to find the smallest value and its index
+fn find_little(vu: &Vec<usize>) -> Vec<usize> {
+    let (index, &little) = vu.iter().enumerate().min_by_key(|&(_, &val)| val).unwrap();
+    vec![little, index]
+}
+
+fn part_one(left:&mut Vec<usize>, right:&mut Vec<usize>) {
     // Find differences
     let mut nums: Vec<isize> = Vec::new();
     while !left.is_empty() && !right.is_empty() {
@@ -39,9 +49,20 @@ fn main() {
     let res: isize = nums.iter().sum();
     println!("{res}");
 }
+use std::collections::HashMap;
 
-// Helper function to find the smallest value and its index
-fn find_little(vu: &Vec<usize>) -> Vec<usize> {
-    let (index, &little) = vu.iter().enumerate().min_by_key(|&(_, &val)| val).unwrap();
-    vec![little, index]
+fn part_two(left: Vec<usize>, right: Vec<usize>) {
+    let mut right_counts: HashMap<usize, usize> = HashMap::new();
+    for &num in &right {
+        *right_counts.entry(num).or_insert(0) += 1;
+    }
+    let mut res = 0;
+    for i in left {
+        if let Some(&count) = right_counts.get(&i) {
+            res += count * i;
+        } else {
+        }
+    }
+
+    println!("Result: {res}");
 }
