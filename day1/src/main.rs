@@ -47,7 +47,7 @@ fn part_one(left:&mut Vec<usize>, right:&mut Vec<usize>) {
 
     // Calculate the result
     let res: isize = nums.iter().sum();
-    println!("{res}");
+    println!("Part 1: {res}");
 }
 use std::collections::HashMap;
 
@@ -64,5 +64,5 @@ fn part_two(left: Vec<usize>, right: Vec<usize>) {
         }
     }
 
-    println!("Result: {res}");
+    println!("Part 2: {res}");
 }
